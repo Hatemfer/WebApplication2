@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WebApplication2.Models.Employee>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="card-group">
+@foreach (var employee in Model)
+{
+var photoPath = "~/images/" + (employee.PhotoPath ?? "noimage.jpg");
+<div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+<div class="card-header">
+<h5><b>Name : </b> @employee.Name</h5>
+<h5><b>Departement :</b>@employee.Departement</h5>
+<h5><b>Salaire :</b> @employee.Salary</h5>
+</div>
+<img class="card-img-top imageThumbnail" src="@photoPath"
+asp-append-version="true" />
+<div class="card-footer text-center">
+<a asp-controller="Employee" asp-action="Details" asp-route-id="@employee.Id"
+class="btn btn-primary m-1">View</a>
+<a asp-action="Edit" asp-controller="Employee" class="btn btn-primary m-1" asp-route-id="@employee.Id">Edit</a>
+<a asp-action="Delete" asp-controller="Employee" class="btn btn-danger m-1" asp-route-id="@employee.Id">Delete</a>
+</div>
+</div>
+}
+</div>

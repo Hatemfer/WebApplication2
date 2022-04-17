@@ -1,0 +1,61 @@
+﻿@model WebApplication2.ViewModels.CreateViewModel
+@{
+ViewData["Title"] = "Create";
+}
+<h1>Create</h1>
+<h4>Employee</h4>
+<hr />
+<div class="row">
+<div class="col-md-4">
+@*To support file upload set the form element enctype="multipart/form-data" *@
+<form enctype="multipart/form-data" asp-action="Create">
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="form-group">
+<label asp-for="Name" class="control-label"></label>
+<input asp-for="Name" class="form-control" />
+<span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div class="form-group">
+<label asp-for="Department" class="control-label"></label>
+<input asp-for="Department" class="form-control" />
+<span asp-validation-for="Department" class="text-danger"></span>
+</div>
+<div class="form-group">
+<label asp-for="Salary" class="control-label"></label>
+<input asp-for="Salary" class="form-control" />
+<span asp-validation-for="Salary" class="text-danger"></span>
+</div>
+@* asp-for tag helper is set to "Photo" property. "Photo" property type is IFormFile so at runtime asp.net core generates file
+upload control (input type=file)*@
+<div class="form-group row">
+<label asp-for="Photo" class="col-sm-2 col-form-label"></label>
+<div class="col-sm-10">
+<div class="custom-file">
+<input asp-for="Photo" class="form-control custom-file-input">
+<label class="custom-file-label">Choose File...</label>
+</div>
+</div>
+</div>
+<div class="form-group">
+<input type="submit" value="Create" class="btn btn-primary" />
+</div>
+</form>
+</div>
+</div>
+<div>
+<a asp-action="Index">Back to List</a>
+</div>
+@*@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@
+@*This script is required to display the selected file in the file upload element*@
+@section Scripts {
+<script>
+$(document).ready(function () {
+$('.custom-file-input').on("change", function () {
+var fileName = $(this).val().split("\\").pop();
+$(this).next('.custom-file-label').html(fileName);
+});
+});
+</script>
+}
